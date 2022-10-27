@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import searchReducer from "./searchSlice";
-import userReducer from "./userSlice";
+import authReducer from "./authSlice";
 import quoteReducer from "./quoteSlice";
 import detailReducer from "./detailSlice";
 import { getImage } from "../services/getImage";
@@ -13,6 +13,6 @@ export default configureStore({
         detail: detailReducer,
         quote: quoteReducer,
         search: searchReducer,
-        user: userReducer,
+        auth: authReducer,
     },
 });
