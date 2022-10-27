@@ -6,8 +6,10 @@ import DetailPage from "./components/DetailPage";
 
 function App() {
     return (
-        <Router>
-            {/* navbar */}
+        <>
+            <SearchPage />
+            {/* <Router>
+            <div>navbar here</div>
             <Routes>
                 <Route path="/login">
                     <LoginPage />
@@ -22,7 +24,8 @@ function App() {
                     <Navigate to="/search" />
                 </Route>
             </Routes>
-        </Router>
+        </Router> */}
+        </>
     );
 
     // return <LoginPage />;

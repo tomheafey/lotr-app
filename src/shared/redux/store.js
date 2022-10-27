@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import searchReducer from "./searchSlice";
 import authReducer from "./authSlice";
 import quoteReducer from "./quoteSlice";
@@ -15,4 +15,5 @@ export default configureStore({
         search: searchReducer,
         auth: authReducer,
     },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(getImage.middleware, getChars.middleware),
 });

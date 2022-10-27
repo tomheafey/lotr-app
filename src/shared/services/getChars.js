@@ -1,11 +1,24 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+// const header = {"Authorization": `Bearer ${process.env.REACT_APP_LOTR_API_KEY}`}
+
 export const getChars = createApi({
     reducerPath: "getChars",
-    baseQuery: fetchBaseQuery({ baseUrl: "https://the-one-api.dev/v2/" }),
+    baseQuery: fetchBaseQuery({
+        prepareHeaders: (headers) => {
+            headers.set("Authorization", `Bearer ${process.env.REACT_APP_LOTR_API_KEY}`);
+            return headers;
+        },
+        baseUrl: "https://the-one-api.dev/v2/",
+    }),
     endpoints: (builder) => ({
         getCharsByName: builder.query({
             query: (name) => `character?name=/${name}/i`,
+            // transformResponse: (response) => {
+            //     return {
+
+            //     }
+            // }
         }),
         getCharByID: builder.query({
             query: (id) => `character/${id}`,
@@ -16,7 +29,9 @@ export const getChars = createApi({
     }),
 });
 
-export const { getCharsByName, getCharByID, getQuotesByChar } = getChars;
+//"Authorization", `Bearer ${process.env.REACT_APP_LOTR_API_KEY}`
+
+export const { useGetCharByIDQuery, useGetQuotesByCharQuery, useGetCharsByNameQuery } = getChars;
 
 // /character
 // partial char search use regex pattern: character?name=/bagg/i
