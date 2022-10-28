@@ -10,12 +10,9 @@ const DetailPage = ({ detail }) => {
     const randomQuote = useMemo(() => {
         return !!quoteData ? quoteData[Math.floor(Math.random() * quoteData.length)].dialog : "";
     }, [quoteData]);
-    // const { imageData, imageError } = useGetImageByNameQuery(detail.name, { skip: skip });
 
-    //should not be navigable to until user has clicked a details button on search page
-    //should run 2 api queries
-    //pull image from bing api w/ char.name
-    //pull quotes from lotr api w/ char._id
+    const { data: imageData, error: imageError } = useGetImageByNameQuery(detail.name, { skip: skip });
+
     //display image, name, some more details from lotrapi (using detaildisplay component)
 
     return (
@@ -24,6 +21,7 @@ const DetailPage = ({ detail }) => {
             {/* {console.log(quoteData)} */}
             {!!quoteData && <div>{randomQuote}</div>}
             {!!quoteError && <div>{quoteError}</div>}
+            {!!imageData && <img width={"200px"} src={imageData[0].url} />}
         </>
     );
 };
