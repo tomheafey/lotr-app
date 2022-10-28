@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import OverviewDisplay from "../shared/components/OverviewDisplay";
 import { setDetail } from "../shared/redux/detailSlice";
-import { useGetCharsByNameQuery, useGetQuotesByCharQuery } from "../shared/services/getChars";
+import { useGetCharsByNameQuery, useGetQuotesByCharQuery, useLazyGetCharsByNameQuery } from "../shared/services/getChars";
 
 const SearchPage = ({ setDetail }) => {
+    //need to fix this so that data is still displayed when navigating between this page and detailpage
     const [searchTerm, setSearchTerm] = useState("");
-    const [query, setQuery] = useState("");
-    const [skip, setSkip] = useState(true);
+    // const [query, setQuery] = useState("");
+    // const [skip, setSkip] = useState(true);
     // let skip = true;
 
-    const { data, error, isLoading, isSuccess } = useGetCharsByNameQuery(query, { skip: skip });
+    // const { data, error, isLoading, isSuccess } = useGetCharsByNameQuery(query, { skip: skip });
+    const [trigger, { data, error }] = useLazyGetCharsByNameQuery();
+    //trigger is async
 
     //429 error: too many requests
 
@@ -19,11 +22,13 @@ const SearchPage = ({ setDetail }) => {
             <label>lookup by name</label>
             <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
             <button
-                onClick={() => {
+                onClick={async () => {
                     // skip = false;
-                    setQuery(searchTerm);
+                    // setQuery(searchTerm);
                     // setSkip((curr) => !curr);
-                    setSkip(false);
+                    // setSkip(false);
+                    // console.log(`query: ${query}`);
+                    await trigger(searchTerm, true); //true=preferCacheValue
                     //i don't know why using a simple boolean doesn't work but state does
                     //setquery should trigger the hook
                 }}

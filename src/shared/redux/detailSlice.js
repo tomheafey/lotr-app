@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const detailSlice = createSlice({
     name: "detail",
-    initialState: {}, //change to ""/null later?
+    initialState: null, //change to ""/null later?
     reducers: {
         setDetail: (state, action) => action.payload,
         clearDetail: () => null,

@@ -5,20 +5,22 @@ import { connect, useSelector } from "react-redux";
 import { clearDetail } from "../shared/redux/detailSlice";
 
 const DetailPage = ({ detail }) => {
+    //need to fix this so that data is still displayed when navigating between this page and searchpage
+
     const [skip, setSkip] = useState(true);
-    const { data: quoteData, error: quoteError } = useGetQuotesByCharQuery(detail._id, { skip: skip });
+    const { data: quoteData, error: quoteError } = useGetQuotesByCharQuery(!!detail ? detail._id : null, { skip: skip });
+    const { data: imageData, error: imageError } = useGetImageByNameQuery(!!detail ? detail.name : null, { skip: skip });
+    //the detail conditionals above work but seems pretty hacky
+
     const randomQuote = useMemo(() => {
         return !!quoteData ? quoteData[Math.floor(Math.random() * quoteData.length)].dialog : "";
     }, [quoteData]);
-
-    const { data: imageData, error: imageError } = useGetImageByNameQuery(detail.name, { skip: skip });
 
     //display image, name, some more details from lotrapi (using detaildisplay component)
 
     return (
         <>
             <button onClick={() => setSkip(false)}>trigger</button>
-            {/* {console.log(quoteData)} */}
             {!!quoteData && <div>{randomQuote}</div>}
             {!!quoteError && <div>{quoteError}</div>}
             {!!imageData && <img width={"200px"} src={imageData[0].url} />}
