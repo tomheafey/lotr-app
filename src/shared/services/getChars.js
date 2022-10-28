@@ -34,7 +34,7 @@ export const getChars = createApi({
 
 //"Authorization", `Bearer ${process.env.REACT_APP_LOTR_API_KEY}`
 
-export const { useLazyGetCharsByNameQuery, useGetCharByIDQuery, useGetQuotesByCharQuery, useGetCharsByNameQuery } = getChars;
+export const { useLazyGetCharsByNameQuery, useLazyGetQuotesByCharQuery, useGetCharByIDQuery, useGetQuotesByCharQuery, useGetCharsByNameQuery } = getChars;
 
 // /character
 // partial char search use regex pattern: character?name=/bagg/i

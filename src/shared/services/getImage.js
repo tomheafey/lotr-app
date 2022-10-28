@@ -25,4 +25,4 @@ export const getImage = createApi({
     }),
 });
 
-export const { useGetImageByNameQuery } = getImage;
+export const { useLazyGetImageByNameQuery, useGetImageByNameQuery } = getImage;

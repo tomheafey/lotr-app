@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useLazyGetQuotesByCharQuery } from "../services/getChars";
+import { useLazyGetImageByNameQuery } from "../services/getImage";
 
 const OverviewDisplay = ({ char, setDetail }) => {
     let navigate = useNavigate();
@@ -16,7 +18,10 @@ const OverviewDisplay = ({ char, setDetail }) => {
                 onClick={
                     () => {
                         setDetail(char);
+
                         gotoDetailPage();
+                        //possibly show DetailDisplay component here instead of navigating to separate page?
+                        //
                     }
                     //nav to detail page
                 }

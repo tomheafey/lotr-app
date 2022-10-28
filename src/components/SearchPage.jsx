@@ -2,19 +2,19 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import OverviewDisplay from "../shared/components/OverviewDisplay";
 import { setDetail } from "../shared/redux/detailSlice";
-import { useGetCharsByNameQuery, useGetQuotesByCharQuery, useLazyGetCharsByNameQuery } from "../shared/services/getChars";
+import { useGetCharsByNameQuery, useGetQuotesByCharQuery, useLazyGetCharsByNameQuery, useLazyGetQuotesByCharQuery } from "../shared/services/getChars";
+import { useLazyGetImageByNameQuery } from "../shared/services/getImage";
 
 const SearchPage = ({ setDetail }) => {
     //need to fix this so that data is still displayed when navigating between this page and detailpage
     const [searchTerm, setSearchTerm] = useState("");
-    // const [query, setQuery] = useState("");
-    // const [skip, setSkip] = useState(true);
-    // let skip = true;
 
     // const { data, error, isLoading, isSuccess } = useGetCharsByNameQuery(query, { skip: skip });
-    const [trigger, { data, error }] = useLazyGetCharsByNameQuery();
-    //trigger is async
+    const [charsTrigger, { data: charsData, error: charsError }] = useLazyGetCharsByNameQuery();
+    // const [quoteTrigger, { data: quoteData, error: quoteError }] = useLazyGetQuotesByCharQuery();
+    // const [imageTrigger, { data: imageData, error: imageError }] = useLazyGetImageByNameQuery();
 
+    //trigger is async
     //429 error: too many requests
 
     return (
@@ -23,22 +23,15 @@ const SearchPage = ({ setDetail }) => {
             <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
             <button
                 onClick={async () => {
-                    // skip = false;
-                    // setQuery(searchTerm);
-                    // setSkip((curr) => !curr);
-                    // setSkip(false);
-                    // console.log(`query: ${query}`);
-                    await trigger(searchTerm, true); //true=preferCacheValue
-                    //i don't know why using a simple boolean doesn't work but state does
-                    //setquery should trigger the hook
+                    await charsTrigger(searchTerm, true); //true=preferCacheValue
                 }}
             >
                 search
             </button>
 
-            {!!error && "there was an error"}
+            {!!charsError && "there was an error"}
             {/* <div>{!!data && data.docs[0].name}</div> */}
-            <div>{!!data && data.docs.map((char) => <OverviewDisplay key={char._id} char={char} setDetail={setDetail} />)}</div>
+            <div>{!!charsData && charsData.docs.map((char) => <OverviewDisplay key={char._id} char={char} setDetail={setDetail} />)}</div>
         </>
     );
 };
