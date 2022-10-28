@@ -1,6 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const OverviewDisplay = ({ char, setDetail }) => {
+    let navigate = useNavigate();
+    const gotoDetailPage = () => {
+        navigate("/detail");
+    };
+
     return (
         <>
             <div>Name: {char.name}</div>
@@ -8,7 +14,10 @@ const OverviewDisplay = ({ char, setDetail }) => {
             <button
                 id={char._id}
                 onClick={
-                    () => setDetail(char)
+                    () => {
+                        setDetail(char);
+                        gotoDetailPage();
+                    }
                     //nav to detail page
                 }
             >

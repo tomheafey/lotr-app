@@ -1,23 +1,31 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { useGetQuotesByCharQuery } from "../shared/services/getChars";
 import { useGetImageByNameQuery } from "../shared/services/getImage";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { clearDetail } from "../shared/redux/detailSlice";
 
 const DetailPage = ({ detail }) => {
-    let skip = true;
-    const { lotrData, lotrError } = useGetQuotesByCharQuery(detail._id, { skip: skip });
-    const { imageData, imageError } = useGetImageByNameQuery(detail.name, { skip: skip });
-    //can rename data(s) to data: lotrData, bingData
+    const [skip, setSkip] = useState(true);
+    const { data: quoteData, error: quoteError } = useGetQuotesByCharQuery(detail._id, { skip: skip });
+    const randomQuote = useMemo(() => {
+        return !!quoteData ? quoteData[Math.floor(Math.random() * quoteData.length)].dialog : "";
+    }, [quoteData]);
+    // const { imageData, imageError } = useGetImageByNameQuery(detail.name, { skip: skip });
 
     //should not be navigable to until user has clicked a details button on search page
-    //should get the char info (incl id) from whatever they clicked (saved in detail slice?)
     //should run 2 api queries
     //pull image from bing api w/ char.name
     //pull quotes from lotr api w/ char._id
     //display image, name, some more details from lotrapi (using detaildisplay component)
 
-    return <button onClick={() => (skip = false)}>trigger</button>;
+    return (
+        <>
+            <button onClick={() => setSkip(false)}>trigger</button>
+            {/* {console.log(quoteData)} */}
+            {!!quoteData && <div>{randomQuote}</div>}
+            {!!quoteError && <div>{quoteError}</div>}
+        </>
+    );
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -28,3 +36,28 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => ({ detail: state.detail });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailPage);
+
+//quote data format
+// {
+//     "docs": [
+//         {
+//             "_id": "5cd96e05de30eff6ebcce80b",
+//             "dialog": "Now come the days of the King. May they be blessed.",
+//             "movie": "5cd95395de30eff6ebccde5d",
+//             "character": "5cd99d4bde30eff6ebccfea0",
+//             "id": "5cd96e05de30eff6ebcce80b"
+//         },
+//         {
+//             "_id": "5cd96e05de30eff6ebcce82a",
+//             "dialog": "Hobbits!",
+//             "movie": "5cd95395de30eff6ebccde5d",
+//             "character": "5cd99d4bde30eff6ebccfea0",
+//             "id": "5cd96e05de30eff6ebcce82a"
+//         },
+//         {
+//             "_id": "5cd96e05de30eff6ebcce832",
+//             "dialog": "Be careful. Even in defeat, Saruman is dangerous.",
+//             "movie": "5cd95395de30eff6ebccde5d",
+//             "character": "5cd99d4bde30eff6ebccfea0",
+//             "id": "5cd96e05de30eff6ebcce832"
+//         },

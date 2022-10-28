@@ -25,6 +25,9 @@ export const getChars = createApi({
         }),
         getQuotesByChar: builder.query({
             query: (id) => `character/${id}/quote`,
+            transformResponse: (response) => {
+                return response.docs;
+            },
         }),
     }),
 });

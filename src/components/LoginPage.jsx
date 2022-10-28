@@ -8,7 +8,7 @@ const LoginPage = ({ setAuth }) => {
 
     return (
         <>
-            <div>sfae</div>
+            <div>speak friend and enter</div>
             <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             <button
                 id="login"

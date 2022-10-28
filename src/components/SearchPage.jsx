@@ -4,7 +4,7 @@ import OverviewDisplay from "../shared/components/OverviewDisplay";
 import { setDetail } from "../shared/redux/detailSlice";
 import { useGetCharsByNameQuery, useGetQuotesByCharQuery } from "../shared/services/getChars";
 
-const SearchPage = () => {
+const SearchPage = ({ setDetail }) => {
     const [searchTerm, setSearchTerm] = useState("");
     const [query, setQuery] = useState("");
     const [skip, setSkip] = useState(true);
