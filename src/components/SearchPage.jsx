@@ -8,6 +8,7 @@ const SearchPage = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [query, setQuery] = useState("");
     const [skip, setSkip] = useState(true);
+    // let skip = true;
 
     const { data, error, isLoading, isSuccess } = useGetCharsByNameQuery(query, { skip: skip });
 
@@ -19,12 +20,18 @@ const SearchPage = () => {
             <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
             <button
                 onClick={() => {
+                    // skip = false;
                     setQuery(searchTerm);
-                    setSkip((curr) => !curr);
+                    // setSkip((curr) => !curr);
+                    setSkip(false);
+                    //i don't know why using a simple boolean doesn't work but state does
+                    //setquery should trigger the hook
                 }}
             >
                 search
             </button>
+
+            {!!error && "there was an error"}
             {/* <div>{!!data && data.docs[0].name}</div> */}
             <div>{!!data && data.docs.map((char) => <OverviewDisplay key={char._id} char={char} setDetail={setDetail} />)}</div>
         </>

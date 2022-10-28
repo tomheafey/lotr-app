@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { setAuth, revokeAuth } from "../shared/redux/authSlice";
 
-const LoginPage = () => {
+const LoginPage = ({ setAuth }) => {
     const [password, setPassword] = useState("");
     //set auth state when password === env.pw?
 
@@ -10,7 +10,16 @@ const LoginPage = () => {
         <>
             <div>sfae</div>
             <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            <button id="login" onClick={password === process.env.REACT_APP_PASSWORD ? setAuth : () => {}}>
+            <button
+                id="login"
+                onClick={() => {
+                    if (password === process.env.REACT_APP_PASSWORD) {
+                        console.log("authorized");
+                        return setAuth();
+                    }
+                    return;
+                }}
+            >
                 Enter
             </button>
         </>
@@ -19,7 +28,7 @@ const LoginPage = () => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setAuth: () => dispatch(setAuth),
+        setAuth: () => dispatch(setAuth()),
     };
 };
 const mapStateToProps = () => ({});
