@@ -6,6 +6,8 @@ import { useGetCharsByNameQuery, useGetQuotesByCharQuery, useLazyGetCharsByNameQ
 import { useLazyGetImageByNameQuery } from "../shared/services/getImage";
 
 const SearchPage = ({ setDetail }) => {
+    //? might be ambitious - possibly use accordion (mat ui) for this?
+
     //need to fix this so that data is still displayed when navigating between this page and detailpage
     const [searchTerm, setSearchTerm] = useState("");
 
@@ -44,40 +46,3 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = () => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);
-
-//getcharsbyname format:
-// {
-//     docs: [
-//         {
-//             _id: "5cd99d4bde30eff6ebccfc15",
-//             height: "1.06m (3'6\")",
-//             race: "Hobbit",
-//             gender: "Male",
-//             birth: "22 September ,TA 2968",
-//             spouse: "",
-//             death: "Unknown (Last sighting ,September 29 ,3021,) (,SR 1421,)",
-//             realm: "",
-//             hair: "Brown",
-//             name: "Frodo Baggins",
-//             wikiUrl: "http://lotr.wikia.com//wiki/Frodo_Baggins",
-//         },
-//         {
-//             _id: "5cd99d4bde30eff6ebccfd0a",
-//             height: "",
-//             race: "Hobbit",
-//             gender: "Male",
-//             birth: "FO 2",
-//             spouse: "Unnamed wife",
-//             death: "FO",
-//             realm: "",
-//             hair: "",
-//             name: "Frodo Gardner",
-//             wikiUrl: "http://lotr.wikia.com//wiki/Frodo_Gardner",
-//         },
-//     ],
-//     total: 2,
-//     limit: 1000,
-//     offset: 0,
-//     page: 1,
-//     pages: 1,
-// };

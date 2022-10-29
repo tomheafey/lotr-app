@@ -7,6 +7,7 @@ import { useLazyGetImageByNameQuery } from "../shared/services/getImage";
 const DetailPage = ({ detail }) => {
     //need to fix this so that data is still displayed when navigating between this page and searchpage?
     //need to account for no dialog (possibly no picture) for bit characters
+    //for now, displaying img & quote with button, need to display upon mount later
 
     const [quoteTrigger, { data: quoteData, error: quoteError }] = useLazyGetQuotesByCharQuery();
     const [imageTrigger, { data: imageData, error: imageError }] = useLazyGetImageByNameQuery();
@@ -25,9 +26,9 @@ const DetailPage = ({ detail }) => {
     return (
         <>
             <button
-                onClick={() => {
-                    quoteTrigger(detail._id);
-                    imageTrigger(detail.name);
+                onClick={async () => {
+                    await quoteTrigger(detail._id);
+                    await imageTrigger(detail.name);
                 }}
             >
                 trigger
@@ -47,28 +48,3 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => ({ detail: state.detail });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailPage);
-
-//quote data format
-// {
-//     "docs": [
-//         {
-//             "_id": "5cd96e05de30eff6ebcce80b",
-//             "dialog": "Now come the days of the King. May they be blessed.",
-//             "movie": "5cd95395de30eff6ebccde5d",
-//             "character": "5cd99d4bde30eff6ebccfea0",
-//             "id": "5cd96e05de30eff6ebcce80b"
-//         },
-//         {
-//             "_id": "5cd96e05de30eff6ebcce82a",
-//             "dialog": "Hobbits!",
-//             "movie": "5cd95395de30eff6ebccde5d",
-//             "character": "5cd99d4bde30eff6ebccfea0",
-//             "id": "5cd96e05de30eff6ebcce82a"
-//         },
-//         {
-//             "_id": "5cd96e05de30eff6ebcce832",
-//             "dialog": "Be careful. Even in defeat, Saruman is dangerous.",
-//             "movie": "5cd95395de30eff6ebccde5d",
-//             "character": "5cd99d4bde30eff6ebccfea0",
-//             "id": "5cd96e05de30eff6ebcce832"
-//         },

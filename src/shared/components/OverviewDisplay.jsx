@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLazyGetQuotesByCharQuery } from "../services/getChars";
 import { useLazyGetImageByNameQuery } from "../services/getImage";
+import DetailDisplay from "./DetailDisplay";
 
 const OverviewDisplay = ({ char, setDetail }) => {
     let navigate = useNavigate();
     const gotoDetailPage = () => {
         navigate("/detail");
     };
+    const [quoteTrigger, { data: quoteData, error: quoteError }] = useLazyGetQuotesByCharQuery();
+    const [imageTrigger, { data: imageData, error: imageError }] = useLazyGetImageByNameQuery();
+
+    const singleQuote = useMemo(() => {
+        //need to account for no quotes somehow
+        if (!!quoteData && quoteData.length > 0) {
+            return quoteData[0].dialog;
+        }
+        return `No quotes available from ${char.name}`;
+        // return !!quoteData ? quoteData[Math.floor(Math.random() * quoteData.length)].dialog : `No quotes available`;
+    }, [quoteData]);
 
     return (
         <>
@@ -18,8 +30,9 @@ const OverviewDisplay = ({ char, setDetail }) => {
                 onClick={
                     () => {
                         setDetail(char);
-
-                        gotoDetailPage();
+                        quoteTrigger(char._id);
+                        imageTrigger(char.name);
+                        // gotoDetailPage();
                         //possibly show DetailDisplay component here instead of navigating to separate page?
                         //
                     }
@@ -28,7 +41,8 @@ const OverviewDisplay = ({ char, setDetail }) => {
             >
                 details
             </button>
-            {/* onclick=> pass info to detail display/page? */}
+            {!!quoteData && !!imageData && <DetailDisplay quote={singleQuote} url={imageData[0].url} />}
+            {/* {!!quoteData && !!imageData && <DetailDisplay quote={quoteData[0].dialog} url={imageData[0].url} />} */}
         </>
     );
 };
