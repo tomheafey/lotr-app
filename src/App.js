@@ -5,11 +5,21 @@ import SearchPage from "./components/SearchPage";
 import DetailPage from "./components/DetailPage";
 import { PrivateRoute, PublicRoute } from "./shared/components/ProtectedRoute";
 import NavBar from "./shared/components/NavBar";
+import bg from "./shared/images/moriabg.png";
 
 function App() {
     //do i want detail to be a separate page, or a component that conditionally shows up when the user requests details of a specific character?
+
     return (
-        <>
+        <div
+            style={{
+                height: "100vh",
+                backgroundImage: `url(${bg})`,
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                backgroundPosition: "center center",
+            }}
+        >
             {/* <SearchPage /> */}
             {/* <DetailPage /> */}
             <Router>
@@ -21,7 +31,7 @@ function App() {
                     <Route path="*" element={<Navigate to="/search" />} />
                 </Routes>
             </Router>
-        </>
+        </div>
     );
 }
 
