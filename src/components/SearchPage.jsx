@@ -34,7 +34,7 @@ const SearchPage = ({ setDetail }) => {
 
             {!!charsError && "there was an error"}
             {/* <div>{!!data && data.docs[0].name}</div> */}
-            <div>{!!charsData && charsData.docs.map((char) => <OverviewDisplay key={char._id} char={char} setDetail={setDetail} />)}</div>
+            <div>{!!charsData && charsData.map((char) => <OverviewDisplay key={char.id} char={char} setDetail={setDetail} />)}</div>
         </>
     );
 };

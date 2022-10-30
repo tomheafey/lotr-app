@@ -26,11 +26,11 @@ const OverviewDisplay = ({ char, setDetail }) => {
             <div>Name: {char.name}</div>
             <div>Race: {char.race}</div>
             <button
-                id={char._id}
+                id={char.id}
                 onClick={
                     () => {
                         setDetail(char);
-                        quoteTrigger(char._id);
+                        quoteTrigger(char.id);
                         imageTrigger(char.name);
                         // gotoDetailPage();
                         //possibly show DetailDisplay component here instead of navigating to separate page?

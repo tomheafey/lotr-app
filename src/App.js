@@ -17,7 +17,7 @@ function App() {
                 <Routes>
                     <Route path="/login" element={<PublicRoute component={<LoginPage />} />} />
                     <Route path="/search" element={<PrivateRoute component={<SearchPage />} />} />
-                    <Route path="/detail" element={<PrivateRoute component={<DetailPage />} />} />
+                    {/* <Route path="/detail" element={<PrivateRoute component={<DetailPage />} />} /> */}
                     <Route path="*" element={<Navigate to="/search" />} />
                 </Routes>
             </Router>

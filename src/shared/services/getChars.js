@@ -14,11 +14,15 @@ export const getChars = createApi({
     endpoints: (builder) => ({
         getCharsByName: builder.query({
             query: (name) => `character?name=/${name}/i`,
-            // transformResponse: (response) => {
-            //     return {
-
-            //     }
-            // }
+            transformResponse: (response) => {
+                return response.docs.map((val) => ({
+                    id: val._id,
+                    name: val.name,
+                    race: val.race,
+                    birth: val.birth,
+                    death: val.death,
+                }));
+            },
         }),
         getCharByID: builder.query({
             query: (id) => `character/${id}`,
@@ -26,7 +30,7 @@ export const getChars = createApi({
         getQuotesByChar: builder.query({
             query: (id) => `character/${id}/quote`,
             transformResponse: (response) => {
-                return response.docs;
+                return response.docs.filter((val) => val.dialog.length > 80);
             },
         }),
     }),
