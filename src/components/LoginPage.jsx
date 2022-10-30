@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { setAuth, revokeAuth } from "../shared/redux/authSlice";
 import "../shared/css/LoginPage.css";
+import "../shared/css/Inputs.css";
 
 const LoginPage = ({ setAuth }) => {
     const [password, setPassword] = useState("");
@@ -9,7 +10,9 @@ const LoginPage = ({ setAuth }) => {
 
     return (
         <div className="input-container">
-            <div>speak friend and enter</div>
+            <div>
+                <label htmlFor="password">speak friend and enter</label>
+            </div>
             <div>
                 <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>

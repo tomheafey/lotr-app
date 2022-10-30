@@ -6,3 +6,8 @@
 * {
     font-family: Ringbearer, sans-serif;
 }
+
+nav {
+    display: flex;
+    justify-content: right;
+}

@@ -5,10 +5,14 @@ import SearchPage from "./components/SearchPage";
 import DetailPage from "./components/DetailPage";
 import { PrivateRoute, PublicRoute } from "./shared/components/ProtectedRoute";
 import NavBar from "./shared/components/NavBar";
-import bg from "./shared/images/moriabg.png";
+import loginBg from "./shared/images/moriabg.png";
+import searchBg from "./shared/images/minesbg.jpg";
+import { connect } from "react-redux";
 
-function App() {
+function App({ auth }) {
     //do i want detail to be a separate page, or a component that conditionally shows up when the user requests details of a specific character?
+
+    const bg = auth ? searchBg : loginBg;
 
     return (
         <div
@@ -20,8 +24,6 @@ function App() {
                 backgroundPosition: "center center",
             }}
         >
-            {/* <SearchPage /> */}
-            {/* <DetailPage /> */}
             <Router>
                 <NavBar />
                 <Routes>
@@ -35,4 +37,5 @@ function App() {
     );
 }
 
-export default App;
+const mapStateToProps = (state) => ({ auth: state.auth });
+export default connect(mapStateToProps)(App);

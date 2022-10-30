@@ -5,6 +5,7 @@ import QuoteDisplay from "../shared/components/QuoteDisplay";
 import { setDetail } from "../shared/redux/detailSlice";
 import { useGetCharsByNameQuery, useGetQuotesByCharQuery, useLazyGetCharsByNameQuery, useLazyGetQuotesByCharQuery } from "../shared/services/getChars";
 import { useLazyGetImageByNameQuery } from "../shared/services/getImage";
+import "../shared/css/Inputs.css";
 
 const SearchPage = ({ setDetail }) => {
     //? might be ambitious - possibly use accordion (mat ui) for this?
@@ -22,16 +23,23 @@ const SearchPage = ({ setDetail }) => {
 
     return (
         <>
-            <label>lookup by name</label>
-            <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-            <button
-                onClick={async () => {
-                    await charsTrigger(searchTerm, true); //true=preferCacheValue
-                }}
-            >
-                search
-            </button>
-
+            <div className="input-container">
+                <div>
+                    <label htmlFor="search">find characters</label>
+                </div>
+                <div>
+                    <input id="search" type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                </div>
+                <div>
+                    <button
+                        onClick={async () => {
+                            await charsTrigger(searchTerm, true); //true=preferCacheValue
+                        }}
+                    >
+                        Search
+                    </button>
+                </div>
+            </div>
             {!!charsError && "there was an error"}
             {/* <div>{!!data && data.docs[0].name}</div> */}
             <div>{!!charsData && charsData.map((char) => <OverviewDisplay key={char.id} char={char} setDetail={setDetail} />)}</div>

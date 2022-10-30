@@ -11,7 +11,7 @@ const NavBar = ({ auth, revokeAuth }) => {
         <>
             {auth && (
                 <nav>
-                    <NavLink to="/search">Search</NavLink>
+                    {/* <NavLink to="/search">Search</NavLink> */}
                     {/* <NavLink to="/detail">Detail</NavLink> */}
                     <NavLink
                         to="/login"
