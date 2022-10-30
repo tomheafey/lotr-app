@@ -41,7 +41,7 @@ const OverviewDisplay = ({ char, setDetail }) => {
             >
                 details
             </button>
-            {!!quoteData && !!imageData && <DetailDisplay quoteData={quoteData} url={imageData[0].url} />}
+            {!!quoteData && !!imageData && <DetailDisplay quoteData={quoteData} imageData={imageData} />}
             {/* {!!quoteData && !!imageData && <DetailDisplay quote={quoteData[0].dialog} url={imageData[0].url} />} */}
         </>
     );

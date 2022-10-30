@@ -11,7 +11,7 @@ const dummyQuotes = [{ dialog: "abcd" }, { dialog: "efgh" }, { dialog: "ijkl" }]
 
 const QuoteDisplay = ({ quoteData }) => {
     return (
-        <CarouselProvider infinite={true} naturalSlideWidth={100} naturalSlideHeight={100} totalSlides={quoteData.length} visibleSlides={1}>
+        <CarouselProvider infinite={true} naturalSlideWidth={100} naturalSlideHeight={100} totalSlides={quoteData.length} visibleSlides={1} isPlaying={true}>
             <Slider>
                 {quoteData.map((quote, idx) => (
                     <Slide index={idx} key={idx}>
