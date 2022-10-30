@@ -1,0 +1,8 @@
+@font-face {
+    font-family: Ringbearer;
+    src: url(./shared/fonts/RingbearerMedium-51mgZ.ttf);
+}
+
+* {
+    font-family: Ringbearer, sans-serif;
+}
