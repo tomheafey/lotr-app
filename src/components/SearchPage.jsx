@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import OverviewDisplay from "../shared/components/OverviewDisplay";
+import QuoteDisplay from "../shared/components/QuoteDisplay";
 import { setDetail } from "../shared/redux/detailSlice";
 import { useGetCharsByNameQuery, useGetQuotesByCharQuery, useLazyGetCharsByNameQuery, useLazyGetQuotesByCharQuery } from "../shared/services/getChars";
 import { useLazyGetImageByNameQuery } from "../shared/services/getImage";
