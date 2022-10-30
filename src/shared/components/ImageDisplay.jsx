@@ -6,9 +6,11 @@ const ImageDisplay = ({ imageData }) => {
     return (
         <CarouselProvider infinite={true} naturalSlideWidth={100} naturalSlideHeight={100} totalSlides={imageData.length} visibleSlides={1} isPlaying={true}>
             <Slider>
-                {imageData.map((img, idx) => (
-                    <Image index={idx} key={idx} src={img.url} />
-                ))}
+                <div style={{ height: "100px" }}>
+                    {imageData.map((img, idx) => (
+                        <Image index={idx} key={idx} src={img.url} />
+                    ))}
+                </div>
             </Slider>
         </CarouselProvider>
     );
