@@ -1,0 +1,9 @@
+img {
+    width: 40%;
+    max-width: 500px;
+}
+
+.image-container{
+    display: flex;
+    justify-content: center;
+}

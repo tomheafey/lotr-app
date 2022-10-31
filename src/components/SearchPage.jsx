@@ -12,6 +12,7 @@ import AccordionDetails from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import DetailDisplay from "../shared/components/DetailDisplay";
 import styled from "@emotion/styled";
+import "../shared/css/SearchPage.css";
 
 const SearchPage = ({ setDetail }) => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -51,37 +52,38 @@ const SearchPage = ({ setDetail }) => {
                 </div>
             </div>
             {!!charsError && "there was an error"}
-
-            {!!charsData &&
-                charsData.map((char) => (
-                    <Accordion
-                        onClick={async () => {
-                            handleExpand(char.id);
-                            await imageTrigger(char.name);
-                            await quoteTrigger(char.id);
-                        }}
-                        expanded={isExpanded === char.id}
-                        key={char.id}
-                        onChange={async () => {
-                            if (isExpanded === char.id) {
-                            }
-                        }}
-                    >
-                        <AccordionSummary>{char.name}</AccordionSummary>
-                        <AccordionDetails>
-                            <div>
-                                <Div>Race: {char.race}</Div>
-                                <Div>Birth: {char.birth}</Div>
-                                <Div>Death: {char.death}</Div>
-                                <DetailDisplay quoteData={quoteData} imageData={imageData} />
-                            </div>
-                            {/* <div>Race: {char.race}</div>
+            <div className="accordion-container">
+                {!!charsData &&
+                    charsData.map((char) => (
+                        <Accordion
+                            onClick={async () => {
+                                handleExpand(char.id);
+                                await imageTrigger(char.name);
+                                await quoteTrigger(char.id);
+                            }}
+                            expanded={isExpanded === char.id}
+                            key={char.id}
+                            onChange={async () => {
+                                if (isExpanded === char.id) {
+                                }
+                            }}
+                        >
+                            <AccordionSummary>{char.name}</AccordionSummary>
+                            <AccordionDetails>
+                                <div>
+                                    <Div>Race: {char.race}</Div>
+                                    <Div>Birth: {char.birth}</Div>
+                                    <Div>Death: {char.death}</Div>
+                                    <DetailDisplay quoteData={quoteData} imageData={imageData} />
+                                </div>
+                                {/* <div>Race: {char.race}</div>
                             <div>Birth: {char.birth}</div>
                             <div>Death: {char.death}</div> */}
-                            {/* {!!quoteData && quoteData.length > 0 && quoteData[0].dialog} */}
-                        </AccordionDetails>
-                    </Accordion>
-                ))}
+                                {/* {!!quoteData && quoteData.length > 0 && quoteData[0].dialog} */}
+                            </AccordionDetails>
+                        </Accordion>
+                    ))}
+            </div>
 
             {/* <div className="results-container">{!!charsData && charsData.map((char) => <OverviewDisplay key={char.id} char={char} setDetail={setDetail} />)}</div> */}
         </>

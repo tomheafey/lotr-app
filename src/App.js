@@ -13,11 +13,11 @@ function App({ auth }) {
     //do i want detail to be a separate page, or a component that conditionally shows up when the user requests details of a specific character?
 
     const bg = auth ? searchBg : loginBg;
-
+    //lame fix: setting height to 150vh to account for accordion spillover
     return (
         <div
             style={{
-                height: "100vh",
+                height: "125vh",
                 backgroundImage: `url(${bg})`,
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",
