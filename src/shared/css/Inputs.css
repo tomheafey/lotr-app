@@ -6,10 +6,11 @@
 
 input {
     background-color: black;
+    font-size: 25px;
     border-color: #b0d5d5;
     border-width: 2px;
     border-radius: 5px;
-    width: 400px;
+    width: 80%;
 }
 button {
     margin-top: 10px;

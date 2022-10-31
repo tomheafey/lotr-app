@@ -11,10 +11,9 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import DetailDisplay from "../shared/components/DetailDisplay";
+import styled from "@emotion/styled";
 
 const SearchPage = ({ setDetail }) => {
-    //? might be ambitious - possibly use accordion (mat ui) for this?
-
     const [searchTerm, setSearchTerm] = useState("");
 
     // const { data, error, isLoading, isSuccess } = useGetCharsByNameQuery(query, { skip: skip });
@@ -56,20 +55,26 @@ const SearchPage = ({ setDetail }) => {
             {!!charsData &&
                 charsData.map((char) => (
                     <Accordion
-                        onClick={() => handleExpand(char.id)}
+                        onClick={async () => {
+                            handleExpand(char.id);
+                            await imageTrigger(char.name);
+                            await quoteTrigger(char.id);
+                        }}
                         expanded={isExpanded === char.id}
                         key={char.id}
                         onChange={async () => {
                             if (isExpanded === char.id) {
-                                await imageTrigger(char.name);
-                                await quoteTrigger(char.id);
                             }
                         }}
                     >
                         <AccordionSummary>{char.name}</AccordionSummary>
                         <AccordionDetails>
-                            {!!quoteData && !!imageData && <DetailDisplay quoteData={quoteData} imageData={imageData} />}
-                            <DetailDisplay />
+                            <div>
+                                <Div>Race: {char.race}</Div>
+                                <Div>Birth: {char.birth}</Div>
+                                <Div>Death: {char.death}</Div>
+                                <DetailDisplay quoteData={quoteData} imageData={imageData} />
+                            </div>
                             {/* <div>Race: {char.race}</div>
                             <div>Birth: {char.birth}</div>
                             <div>Death: {char.death}</div> */}
@@ -91,3 +96,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = () => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);
+
+const Div = styled("div")((props) => ({
+    fontSize: "20px",
+}));
