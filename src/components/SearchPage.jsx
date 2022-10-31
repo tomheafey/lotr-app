@@ -63,10 +63,6 @@ const SearchPage = ({ setDetail }) => {
                             }}
                             expanded={isExpanded === char.id}
                             key={char.id}
-                            onChange={async () => {
-                                if (isExpanded === char.id) {
-                                }
-                            }}
                         >
                             <AccordionSummary>{char.name}</AccordionSummary>
                             <AccordionDetails>

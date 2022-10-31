@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const authSlice = createSlice({
     name: "auth",
-    initialState: true, //set back to false later
+    initialState: false,
     reducers: {
         setAuth: () => true,
         revokeAuth: () => false,

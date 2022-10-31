@@ -13,7 +13,7 @@ export const getChars = createApi({
     }),
     endpoints: (builder) => ({
         getCharsByName: builder.query({
-            query: (name) => `character?limit=5&name=/${name}/i`,
+            query: (name) => `character?name=/${name}/i`,
             transformResponse: (response) => {
                 return response.docs.map((val) => ({
                     id: val._id,

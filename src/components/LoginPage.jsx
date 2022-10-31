@@ -6,7 +6,6 @@ import "../shared/css/Inputs.css";
 
 const LoginPage = ({ setAuth }) => {
     const [password, setPassword] = useState("");
-    //set auth state when password === env.pw?
 
     return (
         <div className="input-container">
