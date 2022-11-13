@@ -21,21 +21,19 @@ const Div = styled("div")((props) => ({
 }));
 
 const Img = styled("img")((props) => ({
+    border: "1px solid #b0d5d5",
+    borderRadius: "5%",
     maxWidth: "100%",
     objectFit: "contain",
 }));
 
 const ImageContainer = styled("div")((props) => ({
-    border: "1px solid #b0d5d5",
-    height: "250px",
-    width: "200px",
+    width: "250px",
     "@media (min-width: 600px)": {
-        height: "500px",
-        width: "400px",
+        width: "450px",
     },
     "@media (min-width: 900px)": {
-        height: "700px",
-        width: "560px",
+        width: "700px",
     },
     display: "flex",
     justifyContent: "center",
