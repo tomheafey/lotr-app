@@ -70,7 +70,7 @@ const SearchPage = ({ setDetail }) => {
                         <Accordion
                             onClick={async () => {
                                 handleExpand(char.id);
-                                await imageTrigger(char.name, false);
+                                await imageTrigger(char.name);
                                 await quoteTrigger(char.id);
                             }}
                             expanded={isExpanded === char.id}
