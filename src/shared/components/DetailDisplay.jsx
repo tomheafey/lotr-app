@@ -1,18 +1,15 @@
-//maybe render this component on search page (in overview display) instead of navigating to DetailPage
-
 import React from "react";
-import ImageDisplay from "./ImageDisplay";
-import QuoteDisplay from "./QuoteDisplay";
 import styled from "@emotion/styled";
 import "../css/DetailDisplay.css";
 
-const DetailDisplay = ({ quoteData, imageData }) => {
+const DetailDisplay = ({ quote, imageData }) => {
     return (
         <div>
-            <div className="image-container">{!!imageData && <img width={"200px"} src={imageData[0].url} />}</div>
-            {(!quoteData || (!!quoteData && quoteData.length === 0)) && <Div>No quotes found.</Div>}
+            <div className="image-container">{!!imageData && <Img width={"200px"} src={imageData[0].url} />}</div>
+            {/* {(!quoteData || (!!quoteData && quoteData.length === 0)) && <Div>No quotes found.</Div>} */}
             {/* {!!quoteData && quoteData.length === 0 && <div>No quotes found.</div>} */}
-            {!!quoteData && quoteData.length > 0 && <Div>{quoteData[Math.floor(Math.random() * quoteData.length)].dialog}</Div>}
+            {quote && <Div>Random quote: "{quote}"</Div>}
+            {!quote && <Div>No quotes found</Div>}
             {/* {!!quoteData && quoteData.length > 0 && <QuoteDisplay quoteData={quoteData} />} */}
             {/* {!!imageData && <ImageDisplay imageData={imageData} />} */}
         </div>
@@ -21,6 +18,12 @@ const DetailDisplay = ({ quoteData, imageData }) => {
 
 export default DetailDisplay;
 
+// dummy image: https://via.placeholder.com/500/000000/b0d5d5/?text=Loading%20Image...
+
 const Div = styled("div")((props) => ({
     fontSize: "15px",
+}));
+
+const Img = styled("img")((props) => ({
+    maxHeight: "500px",
 }));

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { connect } from "react-redux";
 import { setDetail } from "../shared/redux/detailSlice";
 import { useLazyGetCharsByNameQuery, useLazyGetQuotesByCharQuery } from "../shared/services/getChars";
@@ -30,12 +30,15 @@ const SearchPage = ({ setDetail }) => {
             setIsExpanded(expandedAccordion);
         }
     };
+    const randomQuote = useMemo(() => {
+        if (quoteData && quoteData.length > 0) {
+            return quoteData[Math.floor(Math.random() * quoteData.length)].dialog;
+        }
+    }, [quoteData]);
 
     //TODO: (maybe) add indication that there were no search results
-    //TODO: use regex? to allow searches for Éowyn, Théoden, etc
     //TODO: use isFetching to show dummy image until pic loads
     //TODO: set image height so stuff doesn't bounce around
-    //TODO: indicate that it's a quote somehow
     return (
         <>
             <FormContainer>
@@ -76,7 +79,8 @@ const SearchPage = ({ setDetail }) => {
                                     <Div>Race: {char.race}</Div>
                                     <Div>Birth: {char.birth}</Div>
                                     <Div>Death: {char.death}</Div>
-                                    <DetailDisplay quoteData={quoteData} imageData={imageData} />
+                                    {isFetching && <img src="https://via.placeholder.com/500/000000/b0d5d5/?text=Loading%20Image..." />}
+                                    {!isFetching && <DetailDisplay quote={randomQuote} imageData={imageData} />}
                                 </div>
                                 {/* <div>Race: {char.race}</div>
                             <div>Birth: {char.birth}</div>
