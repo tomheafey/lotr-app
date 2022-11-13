@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import OverviewDisplay from "../shared/components/OverviewDisplay";
-import QuoteDisplay from "../shared/components/QuoteDisplay";
 import { setDetail } from "../shared/redux/detailSlice";
-import { useGetCharsByNameQuery, useGetQuotesByCharQuery, useLazyGetCharsByNameQuery, useLazyGetQuotesByCharQuery } from "../shared/services/getChars";
+import { useLazyGetCharsByNameQuery, useLazyGetQuotesByCharQuery } from "../shared/services/getChars";
 import { useLazyGetImageByNameQuery } from "../shared/services/getImage";
-import "../shared/css/Inputs.css";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionSummary";
-import Typography from "@mui/material/Typography";
 import DetailDisplay from "../shared/components/DetailDisplay";
 import styled from "@emotion/styled";
 import "../shared/css/SearchPage.css";
+import { FormContainer } from "../shared/styled/FormContainer";
+import { Input } from "../shared/styled/Input";
+import { Button } from "../shared/styled/Button";
 
 const SearchPage = ({ setDetail }) => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -34,30 +33,28 @@ const SearchPage = ({ setDetail }) => {
 
     //TODO: (maybe) add indication that there were no search results
     //TODO: use regex? to allow searches for Éowyn, Théoden, etc
-    //TODO: disable button if nothing in input
-    //TODO: style for disabled button
 
     return (
         <>
-            <form className="input-container">
+            <FormContainer className="input-container">
                 <div>
                     <label htmlFor="search">find characters</label>
                 </div>
                 <div>
-                    <input id="search" type="text" autoFocus value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                    <Input id="search" type="text" autoFocus value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                 </div>
                 <div>
-                    <button
-                        prevent
+                    <Button
+                        disabled={searchTerm.length < 3}
                         onClick={async (e) => {
                             e.preventDefault();
                             await charsTrigger(searchTerm, true); //true=preferCacheValue
                         }}
                     >
                         Search
-                    </button>
+                    </Button>
                 </div>
-            </form>
+            </FormContainer>
             {!!charsError && "there was an error"}
             <div className="accordion-container">
                 {!!charsData &&
