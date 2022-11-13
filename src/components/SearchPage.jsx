@@ -8,10 +8,10 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionSummary";
 import DetailDisplay from "../shared/components/DetailDisplay";
 import styled from "@emotion/styled";
-import "../shared/css/SearchPage.css";
 import { FormContainer } from "../shared/styled/FormContainer";
 import { Input } from "../shared/styled/Input";
 import { Button } from "../shared/styled/Button";
+import { AccordionContainer } from "../shared/styled/AccordionContainer";
 
 const SearchPage = ({ setDetail }) => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -19,7 +19,7 @@ const SearchPage = ({ setDetail }) => {
     // const { data, error, isLoading, isSuccess } = useGetCharsByNameQuery(query, { skip: skip });
     const [charsTrigger, { data: charsData, error: charsError }] = useLazyGetCharsByNameQuery();
     const [quoteTrigger, { data: quoteData, error: quoteError }] = useLazyGetQuotesByCharQuery();
-    const [imageTrigger, { data: imageData, error: imageError }] = useLazyGetImageByNameQuery();
+    const [imageTrigger, { data: imageData, error: imageError, isFetching }] = useLazyGetImageByNameQuery();
     //trigger is async
     //429 error: too many requests
     const [isExpanded, setIsExpanded] = useState(null);
@@ -33,10 +33,12 @@ const SearchPage = ({ setDetail }) => {
 
     //TODO: (maybe) add indication that there were no search results
     //TODO: use regex? to allow searches for Éowyn, Théoden, etc
-
+    //TODO: use isFetching to show dummy image until pic loads
+    //TODO: set image height so stuff doesn't bounce around
+    //TODO: indicate that it's a quote somehow
     return (
         <>
-            <FormContainer className="input-container">
+            <FormContainer>
                 <div>
                     <label htmlFor="search">find characters</label>
                 </div>
@@ -56,7 +58,7 @@ const SearchPage = ({ setDetail }) => {
                 </div>
             </FormContainer>
             {!!charsError && "there was an error"}
-            <div className="accordion-container">
+            <AccordionContainer>
                 {!!charsData &&
                     charsData.map((char) => (
                         <Accordion
@@ -83,7 +85,7 @@ const SearchPage = ({ setDetail }) => {
                             </AccordionDetails>
                         </Accordion>
                     ))}
-            </div>
+            </AccordionContainer>
 
             {/* <div className="results-container">{!!charsData && charsData.map((char) => <OverviewDisplay key={char.id} char={char} setDetail={setDetail} />)}</div> */}
         </>

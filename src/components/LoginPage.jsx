@@ -42,11 +42,10 @@ const LoginPage = ({ setAuth }) => {
                         if (password === process.env.REACT_APP_PASSWORD) {
                             return setAuth();
                         }
-                        //! if password incorrect
+                        // if password incorrect
                         setPassword("");
                         setBadPwEntered(true);
                         textInput.current.focus();
-
                         return;
                     }}
                 >
