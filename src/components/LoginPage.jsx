@@ -1,36 +1,47 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { connect } from "react-redux";
 import { setAuth, revokeAuth } from "../shared/redux/authSlice";
 import "../shared/css/LoginPage.css";
 import "../shared/css/Inputs.css";
+import { Button } from "../shared/styled/Button";
 
 const LoginPage = ({ setAuth }) => {
     const [password, setPassword] = useState("");
+    const textInput = useRef(null);
+
+    //TODO: some sort of indication of failed login
+    //TODO: add spacing at top of page
 
     return (
-        <div className="input-container">
+        <form className="input-container">
             <div>
                 <label htmlFor="password">speak friend and enter</label>
             </div>
             <div>
-                <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <input ref={textInput} type="password" id="password" autoFocus value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>
 
             <div>
-                <button
+                <Button
                     id="login"
-                    onClick={() => {
+                    disabled={password.length < 4}
+                    onClick={(e) => {
+                        e.preventDefault();
                         if (password === process.env.REACT_APP_PASSWORD) {
                             console.log("authorized");
                             return setAuth();
                         }
+                        //! if password incorrect
+                        setPassword("");
+                        textInput.current.focus();
+
                         return;
                     }}
                 >
                     Enter
-                </button>
+                </Button>
             </div>
-        </div>
+        </form>
     );
 };
 

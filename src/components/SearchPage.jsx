@@ -32,25 +32,32 @@ const SearchPage = ({ setDetail }) => {
         }
     };
 
+    //TODO: (maybe) add indication that there were no search results
+    //TODO: use regex? to allow searches for Éowyn, Théoden, etc
+    //TODO: disable button if nothing in input
+    //TODO: style for disabled button
+
     return (
         <>
-            <div className="input-container">
+            <form className="input-container">
                 <div>
                     <label htmlFor="search">find characters</label>
                 </div>
                 <div>
-                    <input id="search" type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                    <input id="search" type="text" autoFocus value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                 </div>
                 <div>
                     <button
-                        onClick={async () => {
+                        prevent
+                        onClick={async (e) => {
+                            e.preventDefault();
                             await charsTrigger(searchTerm, true); //true=preferCacheValue
                         }}
                     >
                         Search
                     </button>
                 </div>
-            </div>
+            </form>
             {!!charsError && "there was an error"}
             <div className="accordion-container">
                 {!!charsData &&
