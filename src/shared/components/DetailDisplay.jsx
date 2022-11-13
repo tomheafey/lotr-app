@@ -2,16 +2,13 @@ import React from "react";
 import styled from "@emotion/styled";
 import "../css/DetailDisplay.css";
 
-const DetailDisplay = ({ quote, imageData }) => {
+const DetailDisplay = ({ quote, imageURL }) => {
     return (
         <div>
-            <div className="image-container">{!!imageData && <Img width={"200px"} src={imageData[0].url} />}</div>
-            {/* {(!quoteData || (!!quoteData && quoteData.length === 0)) && <Div>No quotes found.</Div>} */}
-            {/* {!!quoteData && quoteData.length === 0 && <div>No quotes found.</div>} */}
+            {/* <div className="image-container">{!!imageData && <Img width={"200px"} src={imageData[0].url} />}</div> */}
+            <Img src={imageURL} />
             {quote && <Div>Random quote: "{quote}"</Div>}
             {!quote && <Div>No quotes found</Div>}
-            {/* {!!quoteData && quoteData.length > 0 && <QuoteDisplay quoteData={quoteData} />} */}
-            {/* {!!imageData && <ImageDisplay imageData={imageData} />} */}
         </div>
     );
 };

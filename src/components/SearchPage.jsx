@@ -14,14 +14,13 @@ import { Button } from "../shared/styled/Button";
 import { AccordionContainer } from "../shared/styled/AccordionContainer";
 
 const SearchPage = ({ setDetail }) => {
+    const placeholderURL = "https://via.placeholder.com/500/000000/b0d5d5/?text=Loading%20Image...";
     const [searchTerm, setSearchTerm] = useState("");
 
-    // const { data, error, isLoading, isSuccess } = useGetCharsByNameQuery(query, { skip: skip });
     const [charsTrigger, { data: charsData, error: charsError }] = useLazyGetCharsByNameQuery();
     const [quoteTrigger, { data: quoteData, error: quoteError }] = useLazyGetQuotesByCharQuery();
     const [imageTrigger, { data: imageData, error: imageError, isFetching }] = useLazyGetImageByNameQuery();
-    //trigger is async
-    //429 error: too many requests
+
     const [isExpanded, setIsExpanded] = useState(null);
     const handleExpand = (expandedAccordion) => {
         if (isExpanded === expandedAccordion) {
@@ -36,8 +35,12 @@ const SearchPage = ({ setDetail }) => {
         }
     }, [quoteData]);
 
+    const imageURL = useMemo(() => {
+        if (imageData && imageData.length > 0) return imageData[0].url;
+        return "https://via.placeholder.com/500/000000/b0d5d5/?text=Loading%20Image...";
+    }, [imageData]);
+
     //TODO: (maybe) add indication that there were no search results
-    //TODO: use isFetching to show dummy image until pic loads
     //TODO: set image height so stuff doesn't bounce around
     return (
         <>
@@ -67,7 +70,7 @@ const SearchPage = ({ setDetail }) => {
                         <Accordion
                             onClick={async () => {
                                 handleExpand(char.id);
-                                await imageTrigger(char.name);
+                                await imageTrigger(char.name, false);
                                 await quoteTrigger(char.id);
                             }}
                             expanded={isExpanded === char.id}
@@ -79,13 +82,9 @@ const SearchPage = ({ setDetail }) => {
                                     <Div>Race: {char.race}</Div>
                                     <Div>Birth: {char.birth}</Div>
                                     <Div>Death: {char.death}</Div>
-                                    {isFetching && <img src="https://via.placeholder.com/500/000000/b0d5d5/?text=Loading%20Image..." />}
-                                    {!isFetching && <DetailDisplay quote={randomQuote} imageData={imageData} />}
+                                    {isFetching && <DetailDisplay quote={randomQuote} imageURL={placeholderURL} />}
+                                    {!isFetching && <DetailDisplay quote={randomQuote} imageURL={imageURL} />}
                                 </div>
-                                {/* <div>Race: {char.race}</div>
-                            <div>Birth: {char.birth}</div>
-                            <div>Death: {char.death}</div> */}
-                                {/* {!!quoteData && quoteData.length > 0 && quoteData[0].dialog} */}
                             </AccordionDetails>
                         </Accordion>
                     ))}
