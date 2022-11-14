@@ -40,8 +40,12 @@ const SearchPage = ({ setDetail }) => {
         return "https://via.placeholder.com/500/000000/b0d5d5/?text=Loading%20Image...";
     }, [imageData]);
 
-    //TODO: (maybe) add indication that there were no search results
-    //TODO: set image height so stuff doesn't bounce around
+    const characterClick = async (id, name) => {
+        handleExpand(id);
+        await imageTrigger(name);
+        await quoteTrigger(id);
+    };
+
     return (
         <>
             <FormContainer>
@@ -63,15 +67,13 @@ const SearchPage = ({ setDetail }) => {
                     </Button>
                 </div>
             </FormContainer>
-            {!!charsError && "there was an error"}
+            {charsError && "there was an error"}
             <AccordionContainer>
-                {!!charsData &&
+                {charsData &&
                     charsData.map((char) => (
                         <Accordion
                             onClick={async () => {
-                                handleExpand(char.id);
-                                await imageTrigger(char.name);
-                                await quoteTrigger(char.id);
+                                await characterClick(char.id, char.name);
                             }}
                             expanded={isExpanded === char.id}
                             key={char.id}

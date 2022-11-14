@@ -11,6 +11,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "express": "^4.18.2",
     "nuka-carousel": "^5.4.0",
     "pure-react-carousel": "^1.30.1",
     "react": "^18.2.0",
@@ -22,10 +23,14 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "node server.prod.js",
+    "front": "react-scripts start",
+    "build-front": "react-scripts build",
+    "build": "npm-run-all prod build-front",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "back": "SET NODE_ENV=DEVELOPMENT && nodemon --exec babel-node server.js",
+    "prod": "webpack --config webpack.config.server.js"
   },
   "eslintConfig": {
     "extends": [
@@ -44,5 +49,18 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.20.2",
+    "@babel/node": "^7.20.2",
+    "@babel/preset-env": "^7.20.2",
+    "babel-loader": "^9.1.0",
+    "babel-plugin-inline-dotenv": "^1.7.0",
+    "dotenv-webpack": "^8.0.1",
+    "nodemon": "^2.0.20",
+    "npm-run-all": "^4.1.5",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^4.10.0"
   }
 }
